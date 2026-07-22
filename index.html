@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" name="viewport"/>
+<meta content="#08090d" name="theme-color"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='104' fill='%2308090d'/%3E%3Ctext x='256' y='340' font-family='Arial,sans-serif' font-weight='900' font-size='260' fill='%23c8ff3d' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E"/>
+<link rel="manifest" href="lexora.webmanifest"/>
+<title>Lexora 5 — Adaptive English Studio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="app.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+<div class="shell">
+
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">✦</div><div><h1>LEXORA</h1><small>هوش زبانی شخصی</small></div></div>
+  <nav class="nav" id="nav">
+    <button class="nav-btn active" data-page="home" type="button"><i>◈</i><span>خانه</span></button>
+    <button class="nav-btn" data-page="agent" type="button"><i>✦</i><span>ایجنت زبان</span></button>
+    <button class="nav-btn" data-page="cards" type="button"><i>▱</i><span>فلش‌کارت‌ها</span></button>
+    <button class="nav-btn" data-page="review" type="button"><i>◎</i><span>مرور هوشمند</span></button>
+    <button class="nav-btn" data-page="profile" type="button"><i>👤</i><span>پروفایل من</span></button>
+    <button class="nav-btn" data-page="settings" type="button"><i>⚙</i><span>تنظیمات</span></button>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="mini-progress">
+      <div class="row"><b>هدف امروز</b><span class="tiny num" id="goalMini">0/10</span></div>
+      <div class="bar"><i id="goalBar"></i></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="welcome"><h2 id="pageTitle">سلام، آماده‌ای؟ 👋</h2><p id="pageSub">امروز فقط یک قدم کوچک تا انگلیسی روان‌تر فاصله داری.</p></div>
+  <div class="top-actions">
+    <button class="icon-btn sync-chip" id="topSync" title="وضعیت همگام‌سازی" type="button"><i class="sync-ic">⇅</i></button>
+    <button class="icon-btn" id="themeBtn" title="تغییر نور" type="button">☼</button>
+    <button class="btn primary" id="quickAdd" type="button">＋ <span>کلمه جدید</span></button>
+  </div>
+</header>
+
+<!-- ==================== HOME ==================== -->
+<section class="page active" id="page-home">
+  <div class="grid hero-grid">
+    <article class="card hero">
+      <div>
+        <span class="eyebrow"><i class="pulse"></i>LEARNING SIGNAL: ACTIVE</span>
+        <h3>هر کلمه، یک <span class="gradient-text">جهان تازه.</span></h3>
+        <p>ایجنت شخصی تو، مکالمه‌ها را به درس تبدیل می‌کند، اشتباه‌ها را می‌بیند و واژه‌هایی می‌سازد که دقیقاً به درد تو می‌خورند.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn dark" data-go="agent" type="button">گفت‌وگو با Lexi ✦</button>
+        <button class="btn ghost-dark" data-go="review" type="button">شروع مرور امروز</button>
+      </div>
+    </article>
+    <article class="card streak">
+      <div class="row"><div><b>ریتم یادگیری</b><div class="tiny">تداوم، مهم‌تر از شدت است</div></div><span class="streak-fire">🔥</span></div>
+      <div class="ring-wrap"><div class="ring" id="streakRing"><div class="ring-value"><b class="num" id="streakNum">0</b><small>روز پیوسته</small></div></div></div>
+      <div class="row tiny"><span>بهترین رکورد</span><b class="en num" id="bestStreak">0 days</b></div>
+    </article>
+  </div>
+
+  <div class="grid stats">
+    <article class="card stat"><div class="ico">▱</div><b class="num" id="totalCards">0</b><span>کل واژه‌ها</span></article>
+    <article class="card stat"><div class="ico">◎</div><b class="num" id="dueCards">0</b><span>آماده مرور</span></article>
+    <article class="card stat"><div class="ico">↗</div><b class="num" id="mastery">0%</b><span>میانگین تسلط</span></article>
+    <article class="card stat"><div class="ico">✦</div><b class="num" id="xp">0</b><span>امتیاز تجربه</span></article>
+  </div>
+
+  <div class="section-head"><div><h3>Quick Recall</h3><p>یک بازیابی کوتاه؛ بدون خروج از داشبورد</p></div><span class="eyebrow" id="quickStatus">MEMORY PULSE</span></div>
+  <div class="quick-recall">
+    <article class="card quick-stage" id="quickStage">
+      <div id="quickContent">
+        <div class="quick-top"><span class="eyebrow">RECALL IN 10 SECONDS</span></div>
+        <div class="quick-word-row">
+          <div class="quick-word en" id="quickWord">—</div>
+          <button class="speak-fab" id="quickSpeak" title="تلفظ" type="button">🔊</button>
+        </div>
+        <div class="quick-phonetic en" id="quickPhonetic"></div>
+        <div class="quick-answer hide" id="quickAnswer"><b id="quickMeaning"></b><div class="en tiny" id="quickExample"></div></div>
+        <div class="quick-actions">
+          <button class="btn primary" id="quickReveal" type="button">نمایش پاسخ</button>
+          <button class="btn danger hide" id="quickAgain" type="button">دوباره</button>
+          <button class="btn ok hide" id="quickKnow" type="button">بلد بودم</button>
+        </div>
+      </div>
+      <div class="quick-empty hide" id="quickEmpty"><div><b>مرور فوری تمام شد ✓</b><p>صف حافظه برای امروز مرتب است.</p></div></div>
+    </article>
+    <article class="card mission-card">
+      <div>
+        <span class="eyebrow">ACTIVE LANGUAGE MISSION</span>
+        <h4>واژه را از حافظه به مکالمه ببر</h4>
+        <p>Lexi با واژه‌های ضعیف امروز یک سناریوی واقعی می‌سازد، اشتباه‌ها را همان‌جا اصلاح می‌کند و کارت‌های لازم را به‌روزرسانی می‌کند.</p>
+      </div>
+      <button class="btn primary" data-prompt="با سه واژه ضعیف من یک مکالمه تعاملی بساز، اشتباه‌هایم را اصلاح کن و در پایان کارت‌های لازم را به‌روزرسانی کن." type="button">شروع مأموریت ✦</button>
+    </article>
+  </div>
+
+  <div class="section-head"><div><h3>جریان یادگیری اخیر</h3><p>آخرین واژه‌ها و وضعیت تثبیت</p></div><button class="btn ghost" data-go="cards" type="button">دیدن همه</button></div>
+  <div class="card recent-card"><div id="recentList"></div></div>
+</section>
+
+<!-- ==================== AGENT ==================== -->
+<section class="page" id="page-agent">
+<div class="agent-layout">
+  <article class="card chat-card">
+    <div class="chat-head">
+      <div class="agent-id">
+        <div class="agent-orb"></div>
+        <div>
+          <div class="agent-title"><b>Lexi</b><span class="agent-beta">NEURAL TUTOR</span></div>
+          <div class="status-dot" id="agentStatus">آماده برای یادگیری</div>
+        </div>
+      </div>
+      <div class="agent-head-actions">
+        <button class="icon-btn" id="newChat" title="گفت‌وگوی جدید" type="button">＋</button>
+      </div>
+    </div>
+    <div class="agent-modes" id="agentModes">
+      <button class="agent-mode active" data-agent-mode="coach" type="button">✦ مربی هوشمند</button>
+      <button class="agent-mode" data-agent-mode="conversation" type="button">◉ مکالمه واقعی</button>
+      <button class="agent-mode" data-agent-mode="grammar" type="button">⌁ Grammar Doctor</button>
+      <button class="agent-mode" data-agent-mode="ielts" type="button">◎ IELTS Coach</button>
+      <button class="agent-mode" data-agent-mode="interview" type="button">↗ مصاحبه کاری</button>
+      <button class="agent-mode" data-agent-mode="vocab" type="button">Aa Vocabulary Lab</button>
+    </div>
+    <div class="messages" id="messages" tabindex="0"></div>
+    <button class="scroll-down hide" id="scrollDown" title="آخرین پیام" type="button">↓</button>
+    <div class="composer" id="composer">
+      <div class="quick-prompts" id="quickPrompts">
+        <button class="chip" type="button">سطحم را ارزیابی کن</button>
+        <button class="chip" type="button">از اشتباهاتم فلش‌کارت بساز</button>
+        <button class="chip" type="button">یک مکالمه کافه تمرین کنیم</button>
+        <button class="chip" type="button">امروز از من امتحان بگیر</button>
+        <button class="chip" type="button">جدول زمان‌های انگلیسی</button>
+      </div>
+      <div class="compose-box">
+        <button class="icon-mini" id="micBtn" title="گفتار به متن" type="button">◉</button>
+        <textarea aria-label="پیام به Lexi" autocomplete="off" dir="auto" id="chatInput" placeholder="پیامت را بنویس… " rows="1" spellcheck="true"></textarea>
+        <button class="send stop hide" id="stopBtn" title="توقف پاسخ" type="button">■</button>
+        <button class="send" id="sendBtn" title="ارسال" type="button">➤</button>
+      </div>
+    </div>
+  </article>
+
+  <aside class="agent-side">
+    <article class="card side-card mission-control">
+      <div class="row"><h4>مأموریت فعال</h4><span class="mission-status">READY</span></div>
+      <div id="missionTitle">تمرین هدفمند ۱۲ دقیقه‌ای</div>
+      <ol id="missionSteps"><li class="active">گرم‌کردن</li><li>تمرین تولیدی</li><li>بازخورد و تثبیت</li></ol>
+      <div class="mission-actions">
+        <button class="btn primary" id="launchMission" type="button">شروع</button>
+        <button class="btn" id="sessionRecap" type="button">جمع‌بندی</button>
+      </div>
+    </article>
+    <article class="card side-card">
+      <div class="row"><h4>دفتر خطاها</h4><span class="tiny" id="mistakeCount"></span></div>
+      <div class="error-ledger" id="errorLedger"><p class="tiny">هنوز الگوی تکراری ثبت نشده است. Lexi حین تمرین، خطاهای مهم را اینجا ثبت می‌کند.</p></div>
+      <button class="btn ghost full-width hide" id="drillMistakes" type="button">تمرین روی همین خطاها</button>
+    </article>
+    <article class="card side-card">
+      <h4>Memory Snapshot</h4>
+      <div class="agent-snapshot">
+        <div class="snap"><b class="num" id="agentDue">0</b><small>مرور امروز</small></div>
+        <div class="snap"><b class="num" id="agentWeak">0</b><small>واژه ضعیف</small></div>
+        <div class="snap"><b class="num" id="agentKnown">0</b><small>تثبیت‌شده</small></div>
+        <div class="snap"><b class="num" id="agentStreak">0</b><small>روز پیوسته</small></div>
+      </div>
+    </article>
+    <article class="card side-card">
+      <div class="row"><h4>گزارش اقدامات</h4><span class="tiny">LIVE</span></div>
+      <div class="action-log" id="actionLog"></div>
+    </article>
+  </aside>
+</div>
+</section>
+
+<!-- ==================== CARDS ==================== -->
+<section class="page" id="page-cards">
+  <article class="card deck-hero">
+    <div class="deck-copy">
+      <span class="eyebrow">MEMORY LIBRARY</span>
+      <h3>آزمایشگاه واژه‌ها</h3>
+      <p>فقط کارت جمع نکن؛ واژه را ببین، به‌یاد بیاور، تایپ کن، در جمله کاملش کن و وارد زبان فعال خودت کن.</p>
+      <div class="smart-strip">
+        <button class="smart-chip active" data-smart="all" type="button">همه</button>
+        <button class="smart-chip" data-smart="due" type="button">⏳ مرور امروز</button>
+        <button class="smart-chip" data-smart="new" type="button">✦ تازه‌ها</button>
+        <button class="smart-chip" data-smart="weak" type="button">⚡ نقاط ضعف</button>
+        <button class="smart-chip" data-smart="starred" type="button">★ منتخب‌ها</button>
+        <button class="smart-chip" data-smart="suspended" type="button">◌ تعلیق‌شده</button>
+      </div>
+    </div>
+    <div class="deck-metrics">
+      <div class="deck-metric"><b class="num" id="deckDue">0</b><small>برای امروز</small></div>
+      <div class="deck-metric"><b class="num" id="deckNew">0</b><small>تازه</small></div>
+      <div class="deck-metric"><b class="num" id="deckKnown">0</b><small>تثبیت‌شده</small></div>
+    </div>
+  </article>
+
+  <div class="toolbar library-controls">
+    <div class="search"><span>⌕</span><input aria-label="جست‌وجوی کارت‌ها" id="cardSearch" placeholder="واژه، معنی، مثال یا برچسب…"/></div>
+    <select class="field" id="cardFilter" aria-label="فیلتر سطح">
+      <option value="all">همه سطح‌ها</option><option value="NEW">NEW</option><option value="A1">A1</option><option value="A2">A2</option><option value="B1">B1</option><option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
+    </select>
+    <div class="view-toggle"><button class="active" data-view="grid" title="نمای شبکه‌ای" type="button">▦</button><button data-view="list" title="نمای فهرستی" type="button">☰</button></div>
+    <button class="btn" id="importBtn" type="button">ورود JSON</button>
+    <button class="btn" id="exportBtn" type="button">خروجی JSON</button>
+    <input accept="application/json" class="hide" id="importFile" type="file"/>
+  </div>
+
+  <div class="grid deck-grid" id="deckGrid"></div>
+
+  <div class="bulkbar hide" id="bulkbar">
+    <b><span class="num" id="selectedCount">0</span> کارت انتخاب شده</b>
+    <div class="bulk-actions">
+      <button class="btn" id="bulkStar" type="button">★ منتخب</button>
+      <button class="btn" id="bulkSuspend" type="button">◌ تعلیق</button>
+      <button class="btn danger" id="bulkDelete" type="button">حذف</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== REVIEW ==================== -->
+<section class="page" id="page-review">
+<div class="review-shell">
+  <div class="study-mode">
+    <button class="active" data-mode="flip" type="button">کارت کلاسیک</button>
+    <button data-mode="type" type="button">تایپ پاسخ</button>
+    <button data-mode="cloze" type="button">جای خالی</button>
+    <button data-mode="choice" type="button">چهارگزینه‌ای</button>
+  </div>
+  <div class="review-progress">
+    <div class="row"><span id="reviewCount">مرور امروز</span><span class="tiny" id="reviewRemain">۰ باقی‌مانده</span></div>
+    <div class="bar"><i id="reviewBar"></i></div>
+  </div>
+  <div class="card empty hide" id="reviewEmpty">
+    <h3>ماموریت حافظه کامل شد 🎉</h3><p>مرورهای امروز تمام شد. حالا چند واژه را در مکالمه فعال کن.</p>
+    <button class="btn primary" data-go="agent" type="button">تمرین تولیدی با Lexi</button>
+  </div>
+  <div id="reviewArea">
+    <div class="review-card" id="reviewCard">
+      <div class="review-inner">
+        <div class="review-face front">
+          <div class="review-content">
+            <span class="eyebrow" id="reviewInstruction">RECALL THE MEANING</span>
+            <div class="review-word-wrapper"><h2 class="en" id="reviewWord">—</h2><button class="speak-fab" id="speakFront" title="تلفظ" type="button">🔊</button></div>
+            <div class="phonetic en" id="reviewPhonetic"></div>
+            <div class="cloze-sentence en hide" id="clozeSentence"></div>
+            <div class="review-meta"><span class="memory-pill" id="reviewDifficulty">سختی —</span><span class="memory-pill" id="reviewStability">پایداری —</span></div>
+          </div>
+          <div class="answer-box hide" id="answerBox"><input id="typedAnswer" placeholder="معنی فارسی را تایپ کن…" autocomplete="off"/><button class="btn primary" id="checkAnswer" type="button">بررسی</button></div>
+          <div class="choice-grid hide" id="choiceGrid"></div>
+          <div class="answer-feedback hide" id="answerFeedback"></div>
+          <span class="hint" id="flipHint">برای دیدن پاسخ کلیک کن <span class="kbd">Space</span></span>
+        </div>
+        <div class="review-face back">
+          <div class="review-content">
+            <span class="eyebrow">MEANING &amp; CONTEXT</span>
+            <div class="review-word-wrapper"><div class="big-meaning" id="reviewMeaning">—</div><button class="speak-fab" id="speakReview" title="تلفظ" type="button">🔊</button></div>
+            <p class="en" id="reviewExample"></p>
+            <div class="tag-row" id="reviewCollocations"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rating hide" id="rating">
+      <button class="rate again" data-rate="again" type="button"><b>دوباره</b><small id="againInterval">۱۰ دقیقه</small></button>
+      <button class="rate hard" data-rate="hard" type="button"><b>سخت</b><small id="hardInterval">۱ روز</small></button>
+      <button class="rate good" data-rate="good" type="button"><b>خوب</b><small id="goodInterval">۳ روز</small></button>
+      <button class="rate easy" data-rate="easy" type="button"><b>آسان</b><small id="easyInterval">۷ روز</small></button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== PROFILE ==================== -->
+<section class="page" id="page-profile">
+  <div class="profile-command">
+    <div class="profile-identity">
+      <div class="profile-avatar" id="profileAvatarDisplay">LX</div>
+      <div>
+        <span class="eyebrow">LEARNER OS</span>
+        <h2 id="profileNameDisplay">کاربر مهمان</h2>
+        <div class="profile-meta"><span class="tag" id="profileLevelDisplay">B1 — متوسط</span><span class="tag" id="profileGoalBadge">مسیر شخصی</span></div>
+      </div>
+    </div>
+    <div class="profile-score"><div class="score-ring" id="profileScoreRing"><b id="profileScore">0%</b><small>تکمیل پروفایل</small></div></div>
+  </div>
+
+  <div class="profile-tabs" role="tablist">
+    <button class="active" data-profile-tab="identity" type="button">هویت یادگیری</button>
+    <button data-profile-tab="skills" type="button">نقشه مهارت‌ها</button>
+    <button data-profile-tab="routine" type="button">هدف و روتین</button>
+    <button data-profile-tab="preferences" type="button">سبک یادگیری</button>
+  </div>
+
+  <div class="profile-pane active" data-profile-pane="identity">
+    <div class="grid profile-grid">
+      <article class="card profile-card">
+        <div class="card-kicker">01 · LEARNER ID</div>
+        <h3><i class="ico-p">✦</i> هویت و سطح فعلی</h3>
+        <div class="form">
+          <div class="field-row">
+            <div><label class="label" for="userName">نام نمایشی</label><input autocomplete="name" class="field" id="userName" placeholder="مثلاً آرین"/></div>
+            <div><label class="label" for="userAge">سن</label><input class="field" id="userAge" inputmode="numeric" placeholder="مثلاً ۲۴" type="number" min="5" max="120"/></div>
+          </div>
+          <div><label class="label" for="level">سطح فعلی CEFR</label><select class="field styled-select" id="level"><option>A1 — مقدماتی</option><option>A2 — پایه</option><option>B1 — متوسط</option><option>B2 — بالاتر از متوسط</option><option>C1 — پیشرفته</option><option>C2 — مسلط</option></select></div>
+          <div><label class="label" for="nativeLanguage">زبان توضیحات</label><select class="field styled-select" id="nativeLanguage"><option value="fa">فارسی</option><option value="en">English</option></select></div>
+          <button class="btn primary full-width" id="saveProfileBtn" type="button">ذخیره هویت یادگیری</button>
+        </div>
+      </article>
+      <article class="card profile-card diagnostic-card">
+        <div class="card-kicker">QUICK DIAGNOSTIC</div>
+        <h3><i class="ico-p">◎</i> کالیبره‌کردن مسیر</h3>
+        <p>مطمئن نیستی سطح واقعی‌ات چیست؟ Lexi با یک ارزیابی کوتاه تطبیقی، سطح CEFR و سه اولویت تمرینی تو را مشخص می‌کند.</p>
+        <button class="btn primary" id="startDiagnostic" type="button">شروع ارزیابی ۷ دقیقه‌ای</button>
+      </article>
+    </div>
+  </div>
+
+  <div class="profile-pane" data-profile-pane="skills">
+    <article class="card profile-card">
+      <div class="row"><div><div class="card-kicker">CEFR SKILL MAP</div><h3>نقشه مهارت‌های ارتباطی</h3></div><span class="tiny">۰ = مبتدی · ۱۰۰ = مسلط</span></div>
+      <div class="skill-map">
+        <label><span>مکالمه <small class="num" id="speakingVal">50</small></span><input id="skillSpeaking" max="100" min="0" type="range" value="50"/></label>
+        <label><span>شنیدار <small class="num" id="listeningVal">50</small></span><input id="skillListening" max="100" min="0" type="range" value="50"/></label>
+        <label><span>خواندن <small class="num" id="readingVal">50</small></span><input id="skillReading" max="100" min="0" type="range" value="50"/></label>
+        <label><span>نوشتن <small class="num" id="writingVal">50</small></span><input id="skillWriting" max="100" min="0" type="range" value="50"/></label>
+        <label><span>واژگان <small class="num" id="vocabularyVal">50</small></span><input id="skillVocabulary" max="100" min="0" type="range" value="50"/></label>
+        <label><span>گرامر <small class="num" id="grammarVal">50</small></span><input id="skillGrammar" max="100" min="0" type="range" value="50"/></label>
+      </div>
+      <div class="skill-insight" id="skillInsight">ضعیف‌ترین مهارت، اولویت برنامه هفتگی می‌شود.</div>
+      <button class="btn primary" id="saveSkills" type="button">ذخیره نقشه مهارت‌ها</button>
+    </article>
+  </div>
+
+  <div class="profile-pane" data-profile-pane="routine">
+    <div class="grid profile-grid">
+      <article class="card profile-card">
+        <div class="card-kicker">GOAL ENGINE</div>
+        <h3><i class="ico-p">↗</i> هدف قابل اندازه‌گیری</h3>
+        <div class="form">
+          <div><label class="label" for="goal">هدف اصلی</label><select class="field styled-select" id="goal"><option>مکالمه روزمره</option><option>آیلتس و آزمون‌ها</option><option>مهاجرت و زندگی خارج</option><option>کار و جلسات حرفه‌ای</option><option>سفر</option><option>دانشگاه و تحصیل</option></select></div>
+          <div><label class="label" for="targetDate">تاریخ هدف</label><input class="field" id="targetDate" type="date"/></div>
+          <div><label class="label">مرور روزانه: <b class="en num" id="dailyGoalVal">10</b> کارت</label><input id="dailyGoal" max="50" min="5" step="5" type="range" value="10"/></div>
+          <div><label class="label" for="dailyMinutes">زمان تمرین روزانه</label><select class="field" id="dailyMinutes"><option value="10">۱۰ دقیقه</option><option value="20">۲۰ دقیقه</option><option value="30">۳۰ دقیقه</option><option value="45">۴۵ دقیقه</option></select></div>
+          <button class="btn primary full-width" id="saveLearningGoalBtn" type="button">ساخت مسیر شخصی</button>
+        </div>
+      </article>
+      <article class="card profile-card">
+        <div class="card-kicker">PERSONAL CONTEXT</div>
+        <h3><i class="ico-p">#</i> علایق و موقعیت‌ها</h3>
+        <div class="form">
+          <div><label class="label" for="interests">علایق (با ویرگول جدا کن)</label><input class="field" id="interests" placeholder="فوتبال، سینما، برنامه‌نویسی…"/></div>
+          <div><label class="label" for="contexts">موقعیت‌های واقعی تو</label><input class="field" id="contexts" placeholder="جلسه کاری، سفر، دانشگاه…"/></div>
+          <div><label class="label" for="targetAccent">لهجه هدف</label><select class="field" id="targetAccent"><option value="en-US">American</option><option value="en-GB">British</option></select></div>
+          <div class="help">Lexi مثال‌ها و سناریوها را با همین علایق و موقعیت‌ها شخصی‌سازی می‌کند.</div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="profile-pane" data-profile-pane="preferences">
+    <div class="grid profile-grid">
+      <article class="card profile-card">
+        <div class="card-kicker">FEEDBACK CONTRACT</div>
+        <h3><i class="ico-p">✓</i> قرارداد بازخورد</h3>
+        <div class="form">
+          <div><label class="label" for="correctionStyle">روش اصلاح</label><select class="field" id="correctionStyle"><option value="balanced">متعادل؛ خطاهای مهم همان لحظه</option><option value="immediate">دقیق؛ اصلاح هر خطا</option><option value="after">روان؛ جمع‌بندی بعد از پاسخ</option><option value="minimal">حداقلی؛ فقط وقتی مفهوم آسیب می‌بیند</option></select></div>
+          <div class="toggle-row"><div><b>اصلاح فعال اشتباه‌ها</b><div class="help">در تمرین آزاد، الگوهای تکراری ثبت می‌شوند.</div></div><button aria-pressed="true" class="switch on" id="correctionToggle" type="button"></button></div>
+          <div><label class="label" for="explanationDepth">عمق توضیح</label><select class="field" id="explanationDepth"><option value="brief">کوتاه و عملی</option><option value="normal">متعادل با مثال</option><option value="deep">عمیق با مقایسه</option></select></div>
+          <button class="btn primary full-width" id="savePreferences" type="button">ذخیره سبک یادگیری</button>
+        </div>
+      </article>
+      <article class="card profile-card privacy-card">
+        <div class="card-kicker">MEMORY CONTROL</div>
+        <h3><i class="ico-p">◌</i> حافظه شخصی ایجنت</h3>
+        <p>Lexi فقط اطلاعاتی را نگه می‌دارد که برای شخصی‌سازی درس لازم است.</p>
+        <div class="memory-list" id="memoryPreview"></div>
+        <button class="btn danger" id="clearLearningMemory" type="button">پاک‌کردن حافظه مکالمه</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SETTINGS ==================== -->
+<section class="page" id="page-settings">
+  <div class="settings-hero">
+    <div><span class="eyebrow">CONTROL CENTER</span><h2>تنظیمات Lexora</h2><p>اتصال، همگام‌سازی، رفتار ایجنت، صدا، ظاهر و داده‌ها را از یک نقطه کنترل کن.</p></div>
+    <div class="health-chip" id="systemHealth"><i></i><span>تنظیمات ناقص است</span></div>
+  </div>
+
+  <div class="settings-tabs">
+    <button class="active" data-settings-tab="ai" type="button">هوش مصنوعی</button>
+    <button data-settings-tab="sync" type="button">همگام‌سازی</button>
+    <button data-settings-tab="tutor" type="button">رفتار ایجنت</button>
+    <button data-settings-tab="experience" type="button">صدا و ظاهر</button>
+    <button data-settings-tab="data" type="button">داده‌ها</button>
+  </div>
+
+  <!-- AI -->
+  <div class="settings-pane active" data-settings-pane="ai">
+    <div class="grid settings-grid">
+      <article class="card settings-card">
+        <div class="card-kicker">MODEL CONNECTION</div>
+        <h3>اتصال به مدل هوش مصنوعی</h3>
+        <div class="form">
+          <div>
+            <label class="label">پرکردن سریع <span class="tiny">(اختیاری — همیشه قابل ویرایش)</span></label>
+            <div class="preset-row" id="providerPresets">
+              <button data-preset="openai" type="button">OpenAI</button>
+              <button data-preset="openrouter" type="button">OpenRouter</button>
+              <button data-preset="groq" type="button">Groq</button>
+              <button data-preset="gemini" type="button">Gemini</button>
+              <button data-preset="avalai" type="button">AvalAI</button>
+              <button data-preset="gapgpt" type="button">GapGPT</button>
+            </div>
+          </div>
+          <div>
+            <label class="label" for="baseUrl">Base URL</label>
+            <input class="field en" id="baseUrl" inputmode="url" placeholder="https://api.openai.com/v1"/>
+            <div class="help">مسیر chat/completions به‌صورت خودکار اضافه می‌شود.</div>
+          </div>
+          <div>
+            <label class="label" for="apiKey">API Key</label>
+            <div class="input-wrap"><input autocomplete="off" class="field en" id="apiKey" placeholder="sk-••••••••" type="password"/><button id="showKey" type="button">نمایش</button></div>
+          </div>
+          <div>
+            <label class="label" for="modelName">نام مدل</label>
+            <input class="field en" id="modelName" list="modelSuggestions" placeholder="gpt-4o-mini"/>
+            <datalist id="modelSuggestions">
+              <option value="gpt-4o-mini"></option><option value="gpt-4o"></option><option value="gpt-4.1-mini"></option>
+              <option value="openai/gpt-4o-mini"></option><option value="anthropic/claude-3.5-sonnet"></option>
+              <option value="llama-3.3-70b-versatile"></option><option value="gemini-2.0-flash"></option><option value="deepseek-chat"></option>
+            </datalist>
+          </div>
+          <div class="row"><button class="btn primary" id="saveSettings" type="button">ذخیره اتصال</button><button class="btn" id="testConnection" type="button">تست اتصال</button></div>
+        </div>
+      </article>
+      <article class="card settings-card">
+        <div class="card-kicker">SECURITY STATUS</div>
+        <h3>وضعیت اتصال</h3>
+        <div class="connection-checks">
+          <div><span>آدرس امن HTTPS</span><b id="httpsCheck">—</b></div>
+          <div><span>مدل انتخاب‌شده</span><b id="modelCheck">—</b></div>
+          <div><span>کلید آماده</span><b id="keyCheck">—</b></div>
+        </div>
+        <div class="toggle-row"><div><b>ذخیره کلید روی این دستگاه</b><div class="help">در حالت خاموش، فقط تا بسته‌شدن تب می‌ماند و همگام‌سازی هم نمی‌شود.</div></div><button aria-pressed="false" class="switch" id="rememberToggle" type="button"></button></div>
+        <div class="notice">کلید فقط روی دستگاه تو نگه‌داری می‌شود و مستقیم به سرویس انتخابی‌ات ارسال می‌شود.</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- SYNC -->
+  <div class="settings-pane" data-settings-pane="sync">
+    <div class="grid settings-grid">
+      <article class="card settings-card">
+        <div class="card-kicker">CLOUD SYNC</div>
+        <h3>همگام‌سازی موبایل و دسکتاپ</h3>
+        <p class="help">همه‌چیز — کارت‌ها، پیشرفت، پروفایل و تنظیمات — در یک <b>Gist خصوصی</b> در اکانت گیت‌هاب خودت ذخیره می‌شود. رایگان، امن و بدون سرور واسطه.</p>
+        <div class="sync-state">
+          <span class="sync-dot" id="syncDot"></span>
+          <div class="grow"><b id="syncStatusText">متصل نیست</b><small class="tiny" id="syncLastTime">برای شروع، توکن گیت‌هاب را وارد کن</small></div>
+          <button class="btn hide" id="syncNow" type="button">همگام‌سازی</button>
+        </div>
+        <div class="form" id="syncConnectForm">
+          <div>
+            <label class="label" for="syncToken">GitHub Token <span class="tiny">(فقط با دسترسی gist)</span></label>
+            <div class="input-wrap"><input autocomplete="off" class="field en" id="syncToken" placeholder="ghp_… یا github_pat_…" type="password"/><button id="showSyncToken" type="button">نمایش</button></div>
+          </div>
+          <button class="btn primary full-width" id="syncConnect" type="button">اتصال و فعال‌سازی سینک</button>
+        </div>
+        <div class="form hide" id="syncManage">
+          <div class="toggle-row"><div><b>همگام‌سازی خودکار</b><div class="help">بعد از هر تغییر و هنگام بازشدن برنامه</div></div><button class="switch on" id="syncAutoToggle" type="button"></button></div>
+          <div class="data-actions">
+            <button class="btn primary" id="copyPairLink" type="button">📱 لینک اتصال دستگاه دوم</button>
+            <button class="btn danger" id="syncDisconnect" type="button">قطع اتصال از این دستگاه</button>
+          </div>
+          <div class="help">لینک اتصال، توکن را هم منتقل می‌کند؛ فقط برای خودت (مثلاً در Saved Messages تلگرام) بفرست.</div>
+        </div>
+      </article>
+      <article class="card settings-card">
+        <div class="card-kicker">SETUP GUIDE</div>
+        <h3>راه‌اندازی در ۳ قدم</h3>
+        <ol class="sync-guide">
+          <li>در گیت‌هاب: <span class="en">Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token</span> و فقط تیک <b class="en">gist</b> را بزن.</li>
+          <li>توکن را اینجا وارد کن و «اتصال» را بزن — Lexora خودش Gist خصوصی می‌سازد.</li>
+          <li>در دستگاه دوم فقط «لینک اتصال دستگاه دوم» را باز کن. تمام! ✨</li>
+        </ol>
+        <div class="connection-checks">
+          <div><span>وضعیت اتصال</span><b id="syncCheckConn">—</b></div>
+          <div><span>آخرین ارسال</span><b id="syncCheckPush">—</b></div>
+          <div><span>آخرین دریافت</span><b id="syncCheckPull">—</b></div>
+        </div>
+        <div class="notice">توکن هرگز داخل فایل سینک قرار نمی‌گیرد و فقط روی دستگاه‌های خودت می‌ماند.</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- TUTOR -->
+  <div class="settings-pane" data-settings-pane="tutor">
+    <div class="grid settings-grid">
+      <article class="card settings-card">
+        <div class="card-kicker">AGENT AUTONOMY</div>
+        <h3>اختیار و ایمنی ایجنت</h3>
+        <div class="toggle-row"><div><b>اجازه اجرای ابزارها</b><div class="help">ساخت و به‌روزرسانی فلش‌کارت و شروع مرور.</div></div><button class="switch on" id="toolsToggle" type="button"></button></div>
+        <div><label class="label" for="toolApproval">تأیید عملیات حساس</label><select class="field" id="toolApproval"><option value="destructive">فقط حذف و تغییر گروهی</option><option value="all">همه عملیات</option><option value="none">بدون تأیید</option></select></div>
+        <div><label class="label" for="agentInitiative">میزان ابتکار ایجنت</label><input id="agentInitiative" max="3" min="1" type="range" value="2"/><div class="range-labels"><span>پاسخ‌گو</span><span>مربی</span><span>پیش‌قدم</span></div></div>
+        <button class="btn primary" id="saveSystemSettingsBtn" type="button">ذخیره تنظیمات ایجنت</button>
+      </article>
+      <article class="card settings-card">
+        <div class="card-kicker">SESSION RULES</div>
+        <h3>قواعد جلسه</h3>
+        <div class="form">
+          <label class="check-row"><input checked id="autoRecap" type="checkbox"/><span>جمع‌بندی پایان جلسه و ثبت خطاهای پرتکرار</span></label>
+          <label class="check-row"><input checked id="retrievalFirst" type="checkbox"/><span>قبل از نمایش پاسخ، فرصت بازیابی بده</span></label>
+          <label class="check-row"><input id="englishFirst" type="checkbox"/><span>در حالت مکالمه، پیش‌فرض انگلیسی باشد</span></label>
+          <label class="check-row"><input id="autoCards" type="checkbox"/><span>پیشنهاد ساخت کارت از واژگان ارزشمند</span></label>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="settings-pane" data-settings-pane="experience">
+    <div class="grid settings-grid">
+      <article class="card settings-card">
+        <div class="card-kicker">VOICE LAB</div>
+        <h3>صدا و تلفظ</h3>
+        <div class="form">
+          <div><label class="label" for="speechAccent">لهجه پخش</label><select class="field" id="speechAccent"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option></select></div>
+          <div><label class="label" for="voiceSelect">صدای تلفظ</label><select class="field en" id="voiceSelect"><option value="">خودکار (بهترین صدای انگلیسی)</option></select><div class="help" id="voiceHint">صداها از موتور خود دستگاه می‌آیند؛ برای هر دستگاه جداگانه انتخاب می‌شود.</div></div>
+          <div><label class="label" for="speechRate">سرعت تلفظ: <b class="en num" id="speechRateVal">0.85×</b></label><input id="speechRate" max="1.15" min="0.55" step="0.05" type="range" value="0.85"/></div>
+          <label class="check-row"><input checked id="dictAudio" type="checkbox"/><span>استفاده از تلفظ انسانی دیکشنری وقتی موجود است</span></label>
+          <button class="btn" id="testVoice" type="button">🔊 شنیدن نمونه</button>
+        </div>
+      </article>
+      <article class="card settings-card">
+        <div class="card-kicker">INTERFACE</div>
+        <h3>ظاهر و دسترس‌پذیری</h3>
+        <div class="form">
+          <div><label class="label" for="themeMode">پوسته</label><select class="field" id="themeMode"><option value="dark">تیره</option><option value="soft">تیره نرم</option><option value="system">هماهنگ با سیستم</option></select></div>
+          <label class="check-row"><input id="reduceMotion" type="checkbox"/><span>کاهش حرکت‌ها و انیمیشن‌ها</span></label>
+          <label class="check-row"><input id="compactMode" type="checkbox"/><span>حالت فشرده برای نمایش بیشتر</span></label>
+          <button class="btn primary" id="saveExperience" type="button">اعمال تجربه کاربری</button>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- DATA -->
+  <div class="settings-pane" data-settings-pane="data">
+    <div class="grid settings-grid">
+      <article class="card settings-card">
+        <div class="card-kicker">PORTABLE DATA</div>
+        <h3>پشتیبان‌گیری کامل</h3>
+        <p class="help">پروفایل، تنظیمات، کارت‌ها، تاریخچه مرور و گفت‌وگوها در یک فایل JSON.</p>
+        <div class="data-actions">
+          <button class="btn primary" id="exportAll" type="button">دریافت نسخه پشتیبان</button>
+          <button class="btn" id="importAllBtn" type="button">بازیابی نسخه پشتیبان</button>
+          <input accept="application/json" class="hide" id="importAllFile" type="file"/>
+        </div>
+        <div class="storage-meter"><div class="row"><span>فضای محلی تقریبی</span><b class="num" id="storageSize">—</b></div><div class="bar"><i id="storageBar"></i></div></div>
+      </article>
+      <article class="card settings-card danger-zone">
+        <div class="card-kicker">PRIVACY &amp; RESET</div>
+        <h3>کنترل داده‌ها</h3>
+        <div class="toggle-row"><div><b>حافظه مکالمه</b><div class="help">تاریخچه برای ادامه زمینه جلسه نگه‌داری شود.</div></div><button class="switch on" id="chatMemoryToggle" type="button"></button></div>
+        <div class="row"><div><b>پاک‌سازی کامل برنامه</b><div class="help">این عمل برگشت‌پذیر نیست.</div></div><button class="btn danger" id="resetApp" type="button">پاک‌سازی</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<nav class="mobile-nav">
+  <button aria-label="خانه" class="active" data-page="home" type="button"><i>◈</i><span>خانه</span></button>
+  <button aria-label="ایجنت زبان" data-page="agent" type="button"><i>✦</i><span>ایجنت</span></button>
+  <button aria-label="فلش‌کارت‌ها" data-page="cards" type="button"><i>▱</i><span>کارت‌ها</span></button>
+  <button aria-label="مرور هوشمند" data-page="review" type="button"><i>◎</i><span>مرور</span></button>
+  <button aria-label="پروفایل" data-page="profile" type="button"><i>👤</i><span>پروفایل</span></button>
+  <button aria-label="تنظیمات" data-page="settings" type="button"><i>⚙</i><span>تنظیمات</span></button>
+</nav>
+
+<!-- Card modal -->
+<div class="modal" id="cardModal">
+  <div class="card modal-box">
+    <div class="modal-head"><h3 id="modalTitle">کلمه جدید</h3><button aria-label="بستن پنجره" class="close" type="button">×</button></div>
+    <form class="form" id="cardForm">
+      <input id="editId" type="hidden"/>
+      <div>
+        <label class="label">واژه انگلیسی *</label>
+        <div class="input-wrap"><input class="field en" id="fWord" placeholder="serendipity" required/><button class="dict-btn" id="fetchDictBtn" title="دریافت خودکار تلفظ و مثال از دیکشنری" type="button">✨ دیکشنری</button></div>
+      </div>
+      <div class="grid two">
+        <div><label class="label">معنی فارسی *</label><input class="field" id="fMeaning" placeholder="کشف خوشایند اتفاقی" required/></div>
+        <div><label class="label">تلفظ</label><input class="field en" id="fPhonetic" placeholder="/ˌser.ənˈdɪp.ə.ti/"/></div>
+      </div>
+      <div><label class="label">مثال انگلیسی</label><textarea class="field en" id="fExample" placeholder="Meeting you was pure serendipity." rows="3"></textarea></div>
+      <div class="grid two">
+        <div><label class="label">نقش دستوری</label><select class="field" id="fPos"><option value="">انتخاب نشده</option><option>noun</option><option>verb</option><option>adjective</option><option>adverb</option><option>phrase</option><option>phrasal verb</option></select></div>
+        <div><label class="label">سطح CEFR</label><select class="field" id="fLevel"><option>NEW</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select></div>
+      </div>
+      <div><label class="label">هم‌آیندها (Collocations)</label><input class="field en" id="fCollocations" placeholder="deeply resilient, thrive on, subtle difference"/></div>
+      <div><label class="label">یادسپار شخصی</label><textarea class="field" id="fMnemonic" placeholder="یک تصویر، داستان یا ارتباط شخصی برای یادآوری…" rows="2"></textarea></div>
+      <div><label class="label">برچسب‌ها</label><input class="field" id="fTags" placeholder="روزمره، سفر، آیلتس"/></div>
+      <div class="modal-actions">
+        <button class="btn danger hide" id="modalDelete" type="button">حذف</button>
+        <span class="spacer"></span>
+        <button class="btn ghost close" type="button">انصراف</button>
+        <button class="btn primary" type="submit">ذخیره کارت</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Word drawer -->
+<div class="drawer" id="cardDrawer">
+  <aside class="drawer-panel">
+    <div class="row"><span class="eyebrow">WORD DEEP DIVE</span><button class="close" id="closeDrawer" type="button">×</button></div>
+    <div class="drawer-word-row"><div class="drawer-word en" id="drawerWord">—</div><button class="speak-fab" id="drawerSpeak" title="تلفظ" type="button">🔊</button></div>
+    <div class="phonetic en" id="drawerPhonetic"></div>
+    <div class="drawer-meaning" id="drawerMeaning"></div>
+    <div class="detail-block"><small>مثال طبیعی</small><p class="en" id="drawerExample"></p></div>
+    <div class="detail-block"><small>هم‌آیندها</small><div class="tag-row" id="drawerCollocations"></div></div>
+    <div class="detail-block"><small>یادسپار شخصی</small><p id="drawerMnemonic"></p></div>
+    <div class="detail-block">
+      <small>وضعیت حافظه</small>
+      <div class="row"><span id="drawerMastery"></span><span id="drawerNext"></span></div>
+      <div class="mastery-track"><i id="drawerMasteryBar"></i></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn danger" id="drawerDelete" type="button">حذف</button>
+      <button class="btn" id="drawerEdit" type="button">ویرایش</button>
+      <button class="btn primary" id="drawerPractice" type="button">تمرین با Lexi</button>
+    </div>
+  </aside>
+</div>
+
+<div class="toast-stack" id="toasts" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
